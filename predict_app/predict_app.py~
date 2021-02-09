@@ -1,0 +1,104 @@
+from __future__ import division, print_function
+
+import base64
+import gc
+import io
+import os
+
+import numpy as np
+from PIL import Image
+from flask import request, jsonify, Flask, render_template, __main__
+from flask_cors import CORS
+
+import cv2 as cv
+from pathlib import Path
+from PIL import Image
+import random
+
+from tensorflow.python.keras.models import load_model
+from tqdm import tqdm  # to increase iteration speed
+import gc
+import matplotlib.pyplot as plt
+import numpy as np
+import tensorflow as tf
+from kerastuner.tuners import RandomSearch
+from kerastuner.engine.hyperparameters import HyperParameters
+from tensorflow.python.client import device_lib
+from sklearn import preprocessing, model_selection
+from keras import backend as K
+from keras.preprocessing.image import ImageDataGenerator
+from keras import layers, models, optimizers, losses, Sequential
+from keras.preprocessing.image import img_to_array, load_img
+from keras.applications.vgg16 import VGG16
+from keras.applications.resnet50 import ResNet50
+from keras.callbacks import ModelCheckpoint, LearningRateScheduler, TensorBoard, EarlyStopping
+from werkzeug.utils import secure_filename
+
+#os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+# os.environ reprsesents user's environment variables as a map
+# handles allocation exceeds 10%
+# TF_CPP_MIN_LOG_LEVEL: 3 is available in the os.environ map
+# TF_CPP_MIN_lOG is used To disable all logging output from TensorFlow
+# and set the following environment variable before launching Python
+# Takes for values:
+#                   0 (all messages logged --> defualt behaviour)
+#                   1 (INFO messages not printed)
+#                   2 (INFO, WARNING messages not printed)
+#                   3(INFO, WARNING ERROR MESSAGES NOT PRINTED)
+
+app = Flask(__name__)
+# initialising a Flask instance
+# __name__: built in variable; evaluates the name of the current module
+CORS(app)
+
+
+def get_model():  # a function to load the model
+    global model  # model can be accessed throughout the app
+    model = load_model('D:\Freidburg-s-Groceries\h5 files\groceries_2.h5')
+    # we choose the model groceries_2.h5 present in the same directory
+    # why Adam? faster than sdg and uses sdg extensions
+    # why learning rate 10e-4?
+    print("model loaded!")
+
+
+'''def read_class():  # a mapof the encoded target with its corresponding class
+    global class_dictionary  # can be seen throughout the app
+    with open('class_map.txt', 'r') as file:
+        class_dictionary = file.read()
+    class_dictionary = eval(class_dictionary)
+    # takes content from txt file (created in groceies.ipynb) and converts to dictionary
+'''
+
+
+def preprocess_image(image, target_size):
+    if image.mode != 'RGB':  # if the image is not in rgb, convert to rgb
+        image = image.convert('RGB')
+    image = image.resize(target_size)
+    image = img_to_array(image)
+    image = np.expand_dims(image, axis=0)
+    return image  # expands the array by inserting a new axis at the specified position
+    # basically for axis = 0 changes shape from (n,n) to (1, n, n)
+    # for axis = 1, shape change follows (n, n) to (n, 1 , n)
+
+
+print("Loading Keras Model")
+gc.collect()  # essential for smooth running of the model
+get_model()
+#read_class()
+
+
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+
+# the flask app can be accessed by host/upload
+# nature of the app is: post
+@app.route('/predict', methods=['POST'])
+# upload image to server and predict
+def predict():
+    f = request.files['file']
+    f.save(
+        os.path.join('uploads', secure_filename(f.filename)))  # save image as file in uploads directory in the server
+    image = os.path.join('uploads', str(f).split(' ')[1].split('\'')[1])
+    image = preprocess_imag

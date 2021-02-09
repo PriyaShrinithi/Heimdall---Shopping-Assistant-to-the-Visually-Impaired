@@ -1,0 +1,5 @@
+numpy==1.14.2
+Flask==1.1.2
+Keras==2.2.2
+Pillow==8.1.0
+gunicorn

@@ -1,0 +1,1 @@
+{0: 'beans', 1: 'cake', 2: 'candy', 3: 'cereal', 4: 'chips', 5: 'chocolate', 6: 'coffee', 7: 'corn', 8: 'fish', 9: 'flour', 10: 'honey', 11: 'jam', 12: 'juice', 13: 'milk', 14: 'nuts', 15: 'oil', 16: 'pasta', 17: 'rice', 18: 'soda', 19: 'spices', 20: 'sugar', 21: 'tea', 22: 'tomato_sauce', 23: 'vinegar', 24: 'water'}

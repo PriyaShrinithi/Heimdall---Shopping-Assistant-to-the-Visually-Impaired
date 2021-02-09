@@ -1,0 +1,13 @@
+<html>
+    <body>
+        <form method="POST" action="/predict" enctype="multipart/form-data">
+            <!--enctype: eattribute that specifies how the formdata show be encoded when submitting to the server-->
+            <!--multipart/form-data: No characters are encoded (used while usiing forms that have a file upload control)-->
+            <!--action:  to specify where the formdata is to be sent to the server-->
+            <!--Here, we send it to the route /predict-->
+        <input type="file" name="file">
+        <input type="submit">
+
+        </form>
+    </body>
+</html>
