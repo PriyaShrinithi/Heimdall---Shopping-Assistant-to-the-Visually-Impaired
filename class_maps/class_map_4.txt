@@ -1,1 +1,1 @@
-{'nuts': 0, 'oil': 1, 'pasta': 2}
+{0: 'jam', 1: 'juice', 2: 'milk'}

@@ -1,1 +1,1 @@
-{'chocolate': 0, 'coffee': 1, 'corn': 2}
+{0: 'candy', 1: 'cereal', 2: 'chips'}

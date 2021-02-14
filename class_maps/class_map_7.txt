@@ -1,0 +1,1 @@
+{0: 'sugar', 1: 'tea', 2: 'tomato_sauce'}

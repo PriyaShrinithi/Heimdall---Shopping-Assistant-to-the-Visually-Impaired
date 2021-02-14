@@ -1,1 +1,1 @@
-{'fish': 0, 'flour': 1, 'honey': 2}
+{0: 'chocolate', 1: 'coffee', 2: 'corn'}
