@@ -1,1 +1,0 @@
-{'candy': 0, 'cereal': 1, 'chips': 2}
